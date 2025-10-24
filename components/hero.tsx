@@ -17,8 +17,9 @@ export function Hero() {
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Experience lightning-fast, secure attendance system with Ehadir.
-            Built with React and Tailwind CSS for modern web applications.
+            Experience lightning-fast, secure attendance system with Next
+            Attend. Built with React and Tailwind CSS for modern web
+            applications.
           </p>
 
           {/* Benefits */}
