@@ -1,0 +1,14 @@
+### baseurl
+@baseurl = http://localhost:3000
+
+### get session
+GET {{baseurl}}/api/auth/get-session
+
+### signin
+POST {{baseurl}}/api/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test"
+}
