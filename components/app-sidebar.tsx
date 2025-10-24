@@ -6,13 +6,9 @@ import {
   BookOpen,
   Bot,
   Calendar,
+  Check,
   Command,
-  Frame,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
   Users,
 } from "lucide-react";
 
@@ -45,13 +41,11 @@ const teams = [
   },
 ];
 
-const user = [
-  {
-    name: "shadcn",
-    email: "m@example.com",
-    image: "",
-  },
-];
+interface User {
+  name: string;
+  email: string;
+  image: string;
+}
 
 const navMain = [
   {
@@ -63,7 +57,6 @@ const navMain = [
       {
         title: "Attendance",
         url: "/dashboard/attendance",
-        icon: Calendar,
       },
     ],
   },
@@ -74,7 +67,7 @@ const navMain = [
     items: [
       {
         title: "Verification",
-        url: "#",
+        url: "/dashboard/verification",
       },
     ],
   },
@@ -85,17 +78,17 @@ const navMain = [
     items: [
       {
         title: "Users",
-        url: "#",
-      },
-      {
-        title: "Roles",
-        url: "#",
+        url: "/dashboard/users",
       },
     ],
   },
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  user: User;
+}
+
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -105,7 +98,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user[0]} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
