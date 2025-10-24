@@ -42,6 +42,19 @@ export function SignInForm({
       router.push("/dashboard");
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    const result = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/dashboard",
+    });
+    if (result.error) {
+      toast.error(result.error.message ?? "Failed to sign in");
+    } else {
+      toast.success("Signed in successfully");
+      router.push("/dashboard");
+    }
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -87,7 +100,11 @@ export function SignInForm({
                 <Button type="submit" onClick={handleSubmit}>
                   Login
                 </Button>
-                <Button variant="outline" type="button">
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={handleGoogleSignIn}
+                >
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">
