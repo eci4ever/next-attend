@@ -49,7 +49,7 @@ export function Hero() {
               className="text-lg px-8 py-6 h-auto"
               asChild
             >
-              <Link href="/api-status">API Status</Link>
+              <Link href="/">API Status</Link>
             </Button>
           </div>
 
