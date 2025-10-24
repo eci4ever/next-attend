@@ -1,5 +1,5 @@
-import { SignInForm } from "@/components/signin-form";
-import { GalleryVerticalEnd } from "lucide-react";
+import { SignUpForm } from "@/components/signup-form";
+import { UserPlus } from "lucide-react";
 import Link from "next/link";
 
 export default function Page() {
@@ -11,11 +11,11 @@ export default function Page() {
           className="flex items-center gap-2 self-center font-medium"
         >
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-            <GalleryVerticalEnd className="size-4" />
+            <UserPlus className="size-4" />
           </div>
           Next Attend
         </Link>
-        <SignInForm />
+        <SignUpForm />
       </div>
     </div>
   );
