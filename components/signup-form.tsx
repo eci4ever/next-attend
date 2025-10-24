@@ -16,19 +16,34 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { useActionState } from "react";
-import { SignUpAction } from "@/lib/actions/auth-actions";
-
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const [state, formAction, isPending] = useActionState(
-    SignUpAction,
-    undefined
-  );
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  console.log(state);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await authClient.signUp.email({
+      email,
+      password,
+      name,
+    });
+    if (result.error) {
+      toast.error(result.error.message ?? "Failed to sign up");
+    } else {
+      toast.success("Account created successfully");
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -39,13 +54,14 @@ export function SignUpForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={formAction} className={cn(isPending && "opacity-50")}>
+          <form>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="name">Name</FieldLabel>
                 <Input
                   id="name"
-                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   type="text"
                   placeholder="John Doe"
                   required
@@ -55,25 +71,27 @@ export function SignUpForm({
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
-                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Field>
               <Field>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
                 <Input
                   id="password"
-                  name="password"
                   type="password"
                   placeholder="********"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Field>
               <Field>
-                <Button type="submit" disabled={isPending}>
-                  Create Account
+                <Button type="submit" onClick={handleSubmit}>
+                  Sign Up
                 </Button>
                 <FieldDescription className="text-center">
                   Already have an account? <Link href="/signin">Sign in</Link>
